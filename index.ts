@@ -1,7 +1,9 @@
-// Number Types mini-challenge 10 10.2
-// Write a function that will only accept numbers and attend to 
-// all TypeScript weakness flags.
-// : number
+// Boolean Types mini-challenge
+// if the last reviewer is a loyalty User, can you add a star to the end of their name?
+// please do so in the existing function, and make sure to declare what type of 
+// parameters the function takes.
+// : boolean
+
 const reviewTotalDisplay = document.querySelector('#reviews')
 
 const reviews = [
@@ -24,3 +26,12 @@ const reviews = [
         date: '27-03-2021'
     },
 ]
+
+// Solution
+function showReviewTotal (value : number, reviewer: string, isLoyalty : boolean) {
+    const iconDisplay = isLoyalty ? '⭐' : ''
+    reviewTotalDisplay.innerHTML = 'review total ' + value.toString() + '| last reviewed by ' + reviewer + ' ' + iconDisplay
+}
+
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
+
