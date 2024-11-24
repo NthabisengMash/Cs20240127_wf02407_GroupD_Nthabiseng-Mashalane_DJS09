@@ -1,9 +1,9 @@
-// Function Return Types + Void Types mini-challenge
-// Instead of having a long 'review total 3', can you make the line say '3 reviews', or '1 review'
-// if there is only one? Use a function to do this and assing a type to the functions return.
+// Union Types Challenge
+// 1. Fix the function to show the price per night for each property card only
+// if isLoggedIn is true, or the you object has Permissions. (all permissions should work)
+// 2. See what happens when a null object to be passed to the you objects permissions.
 
-import { showReviewTotal, populateUser, showDetails } from './utils'
-import { Price, Country } from './types'
+import { showReviewTotal, populateUser } from './utils'
 import { Permissions , LoyaltyUser } from './enums'
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
@@ -41,6 +41,7 @@ const you = {
     age: 35,
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
 }
+
 
 // Array of Properties
 const properties : {
@@ -99,8 +100,19 @@ const properties : {
 
 // Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
-
 populateUser(you.isReturning, you.firstName)
+
+let authorityStatus : any
+
+isLoggedIn = false
+
+function showDetails(authorityStatus: boolean | Permissions, element : HTMLDivElement, price: number) {
+   if (authorityStatus) {
+       const priceDisplay = document.createElement('div')
+       priceDisplay.innerHTML = price.toString() + '/night'
+       element.appendChild(priceDisplay)
+   }
+}
 
 // Add the properties
 for (let i = 0; i < properties.length; i++) {
@@ -110,8 +122,8 @@ for (let i = 0; i < properties.length; i++) {
     const image = document.createElement('img')
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
-    showDetails(you.permissions, card, properties[i].price)
     propertyContainer.appendChild(card)
+    showDetails({}, card, properties[i].price)
 }
 
 let currentLocation : [string, string, number] = ['London', '11.03', 17]
